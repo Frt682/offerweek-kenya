@@ -1,0 +1,200 @@
+:root {
+  --bg0: #07102a;
+  --bg1: #0b1a3d;
+  --tab: #4aa7ff;
+  --tab-hi: #6bb8ff;
+  --star: #f4c400;
+  --text: #ffffff;
+  --muted: #d7e3f7;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background: #0a0f1c;
+  color: var(--text);
+}
+
+.app {
+  max-width: 430px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background:
+    radial-gradient(circle at 18% 8%, rgba(255,255,255,.08) 0 1px, transparent 2px),
+    radial-gradient(circle at 72% 14%, rgba(255,255,255,.07) 0 1px, transparent 2px),
+    radial-gradient(circle at 40% 30%, rgba(255,255,255,.05) 0 1px, transparent 2px),
+    radial-gradient(circle at 88% 42%, rgba(255,255,255,.06) 0 1px, transparent 2px),
+    linear-gradient(180deg, #081433 0%, #0c1c44 55%, #08122e 100%);
+  padding: 14px 12px 28px;
+  position: relative;
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.tab {
+  border: 0;
+  height: 48px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #5eb3ff, #3b9dff);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  box-shadow: 0 2px 0 rgba(0,0,0,.18);
+}
+.tab.active {
+  box-shadow: inset 0 -3px 0 #fff, 0 2px 0 rgba(0,0,0,.18);
+}
+
+.search-row {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.search {
+  flex: 1;
+  height: 44px;
+  border-radius: 8px;
+  border: 0;
+  padding: 0 14px 0 40px;
+  font-size: 16px;
+  outline: none;
+  background: #fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'><circle cx='11' cy='11' r='7'/><path d='M20 20l-3-3'/></svg>") 12px center no-repeat;
+}
+.search::placeholder { color: #9aa3af; }
+
+.star-btn {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--star);
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
+  box-shadow: 0 2px 6px rgba(0,0,0,.25);
+  flex: 0 0 44px;
+}
+.star-btn.on { filter: brightness(1.05); }
+
+.grid {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 12px;
+}
+.card { background: transparent; border: 0; padding: 0; text-align: center; color: inherit; }
+.card-name {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  min-height: 20px;
+}
+.cover-wrap {
+  background: #fff;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 8px 18px rgba(0,0,0,.28);
+}
+.cover-wrap img {
+  width: 100%;
+  aspect-ratio: 3 / 4.15;
+  object-fit: cover;
+  display: block;
+}
+.card-date {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #eef4ff;
+}
+
+.store-list {
+  margin-top: 16px;
+  display: grid;
+  gap: 10px;
+}
+.store-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255,255,255,.08);
+  border: 0;
+  border-radius: 12px;
+  padding: 12px;
+  color: #fff;
+  text-align: left;
+}
+.badge {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 14px;
+  background: #fff;
+}
+.store-meta { flex: 1; }
+.store-meta b { display: block; font-size: 16px; }
+.store-meta span { font-size: 12px; color: #c9d7ee; }
+
+.viewer {
+  position: fixed;
+  inset: 0;
+  background: #050814;
+  z-index: 20;
+  display: none;
+  flex-direction: column;
+}
+.viewer.open { display: flex; }
+.viewer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+}
+.viewer-bar button {
+  background: rgba(255,255,255,.12);
+  color: #fff;
+  border: 0;
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+.viewer-stage {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  padding: 8px 10px 20px;
+}
+.viewer-stage img {
+  width: min(100%, 520px);
+  height: auto;
+  background: #fff;
+}
+
+.note {
+  margin-top: 22px;
+  font-size: 11px;
+  line-height: 1.45;
+  color: #b7c6de;
+  text-align: center;
+}
+.empty {
+  margin-top: 40px;
+  text-align: center;
+  color: #c5d3ea;
+}
+
+@media (min-width: 760px) {
+  body { padding: 24px 0; }
+  .app {
+    min-height: 860px;
+    border-radius: 28px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.45);
+  }
+}

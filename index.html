@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#081433">
+  <title>OfferWeek Kenya — Market Catalogues</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="img/logo.jpg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app">
+    <div class="tabs">
+      <button class="tab" id="tab-stores">Marketler</button>
+      <button class="tab active" id="tab-latest">Son Eklenenler</button>
+    </div>
+
+    <div class="search-row">
+      <input class="search" id="search" type="search" placeholder="Market Ara...">
+      <button class="star-btn" id="starBtn" aria-label="Favourites">★</button>
+    </div>
+
+    <section class="grid" id="grid"></section>
+    <section class="store-list" id="storeList"></section>
+
+    <p class="note">
+      Independent shopping companion. Not affiliated with the listed retailers.
+      Confirm prices in store.
+      <br>
+      <a href="disclaimer.html" style="color:#8ec5ff">Disclaimer</a>
+      ·
+      <a href="privacy.html" style="color:#8ec5ff">Privacy</a>
+    </p>
+  </main>
+
+  <div class="viewer" id="viewer">
+    <div class="viewer-bar">
+      <button id="closeViewer">Back</button>
+      <strong id="viewerTitle"></strong>
+      <span>
+        <button id="prevPage">Prev</button>
+        <button id="nextPage">Next</button>
+      </span>
+    </div>
+    <div class="viewer-stage">
+      <img id="viewerImg" alt="Catalogue page">
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
