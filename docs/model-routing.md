@@ -1,7 +1,9 @@
 # Model routing (Fırat Aktaş stack)
 
-**Researched:** 2026-08-24  
+**Researched:** 2026-08-24 (LMArena snapshot re-fetched 2026-08-24)  
 **Scope:** Web-primary routing for the tools Fırat actually pays for. One row per job type. No new products.
+
+**Fırat lock:** LMArena **#2 and #3** are the cheaper defaults for each row’s category. **#1 is escalate-if-stuck only — never the default.** Cloud/system agents default to **Composer / Grok / Sonnet**; cheap scouts stay **Composer 2.5**.
 
 ## Stack constraints (fixed)
 
@@ -20,16 +22,30 @@
 
 ## Routing table
 
-| Situation | Model (where to run it) | Why | Cost class |
+LMArena ranks from [Text Arena](https://arena.ai/leaderboard) unless noted as **Agent** board. Snapshot date: **2026-08-24**.
+
+| Situation | Stack default (run first) | Cheaper LMArena defaults (#2 · #3) | Escalate if stuck (#1) | Why | Cost class |
+| --- | --- | --- | --- | --- | --- |
+| **Cheap plumbing / docs / scout Cloud Agents** | **Composer 2.5** → **Grok 4.5** on **Cursor Cloud Agent** | **Instruction Following #2** `claude-fable-5` · **#3** `claude-opus-4-7-high` | **IF #1** `claude-opus-4-6-high` | Scouts/docs need brief adherence, not frontier spend. Composer 2.5 is cheapest in the Cursor Models pool ([Composer 2.5 blog](https://cursor.com/blog/composer-2-5)). Arena #2/#3 are the non-#1 instruction-following tier if Composer/Grok loop. | **Cursor Models pool (included)**; arena #2/#3 → **Other Models — premium tier**; #1 → **Other Models — premium tier** |
+| **Repo / debug** (Cursor Cloud on GitHub repos) | **Claude Sonnet 5** on **Cursor Cloud Agent** | **Coding #2** `claude-opus-4-6-high` · **#3** `claude-fable-5` | **Coding #1** `claude-opus-4-7-high` | Sonnet 5 is the stack ceiling for system Cloud Agents ([Sonnet model card](https://www.anthropic.com/claude/sonnet)). Arena coding #2/#3 sit below #1 on the 2026-08-24 board; use only after Sonnet stalls. | **Other Models — mid tier** (Sonnet 5); arena #2/#3/#1 → **Other Models — premium tier** |
+| **YouTube Unhurried script** (A1–A2 English; quality over volume) | **GPT-5.5** in **ChatGPT Plus** | **Creative Writing #2** `claude-opus-4-6-high` · **#3** `gemini-3.7-flash-high` | **CW #1** `claude-fable-5` | Plus keeps Cursor on-demand off. A1–A2 is constraint-driven; arena CW #3 (`gemini-3.7-flash-high`) is the cheaper arena default before any #1 Fable spend. Daily exception: enable Cursor on-demand once for **#3** in Cursor, then off. Audio = Kokoro + FFmpeg. | **ChatGPT Plus subscription (included)**; arena #3 → **Other Models — low tier**; #2/#1 → **Other Models — premium tier**; optional **Other Models on-demand** for daily exception only |
+| **Kenya OfferWeek `data.js` / static PWA edits** | **Grok 4.5** via **Grok Bot team** (or manual edit) | **Instruction Following #2** `claude-fable-5` · **#3** `claude-opus-4-7-high` | **IF #1** `claude-opus-4-6-high` | Weekly flow stays manual ([`SIZIN-ISINIZ.md`](../SIZIN-ISINIZ.md): no scraper). Grok answers stuck JSON/date strings without opening Cursor. Arena #2/#3 only if Grok/manual fails. | **Grok Bot team subscription (included)**; arena #2/#3/#1 → **Other Models — premium tier** |
+| **Creative book prose** (Book Writer romantasy) | **Book Writer** with **CW #2** `claude-opus-4-6-high` → **#3** `gemini-3.7-flash-high` | *(same as run-first — do not default Fable)* | **CW #1** `claude-fable-5` | Fable is #1 creative writing on LMArena but **escalate only**. Defaults are arena #2 then #3 on the 2026-08-24 board. Book Writer owns drafts; Emanet untouched. | **Other Models — premium tier** (#2) · **Other Models — low tier** (#3); #1 Fable → **Other Models — premium tier** |
+| **Translation** (TR↔EN; Kenya English UI copy) | **Gemini 3.7 Flash** in **Cursor**; bulk drafts in **LM Studio** | **Instruction Following #2** `claude-fable-5` · **#3** `claude-opus-4-7-high` | **IF #1** `claude-opus-4-6-high` | Kenya UI needs plain English, not literary rank. Gemini 3.7 Flash + LM Studio beat arena #2/#3 on cost for routine strings ([LM Studio docs](https://lmstudio.ai/docs)). Arena #2/#3 only for stubborn phrasing. | **Other Models — low tier** or **free / local (LM Studio)**; arena #2/#3/#1 → **Other Models — premium tier** |
+| **Long-context** (full manuscript, long agent transcripts, big diffs) | **Gemini 3.1 Pro** in **Cursor** | **Longer Query #2** `claude-fable-5` · **#3** `claude-opus-4-6` | **LQ #1** `claude-opus-4-6-high` | Gemini 3.1 Pro covers long reads at mid-tier Cursor rates ([model pricing](https://cursor.com/docs/models-and-pricing#model-pricing)). Arena longer-query #2/#3 before burning #1. | **Other Models — mid tier** (Gemini 3.1 Pro); arena #2/#3/#1 → **Other Models — premium tier** |
+| **Tool-calling / agentic** (multi-step Cloud Agent with MCP/tools) | **Composer 2.5** → **Grok 4.5** → **Claude Sonnet 5** on **Cursor Cloud Agent** | **Agent board #2** `Claude Opus 5 (Max)` · **#3** `Claude Fable 5 (High)` | **Agent #1** `Claude Opus 5 (High)` | **Opus is not the default.** System agents stay Composer/Grok/Sonnet per stack lock. Agent-board #2/#3 ([LMArena Agent](https://arena.ai/leaderboard)) only after the three-tier stack loop fails. | **Cursor Models pool (included)** then **Other Models — mid tier** (Sonnet 5); arena #2/#3/#1 → **Other Models — premium tier** |
+
+## LMArena snapshot reference (2026-08-24)
+
+Extracted from [arena.ai/leaderboard](https://arena.ai/leaderboard) Text + Agent boards.
+
+| Category | #1 (escalate only) | #2 (default) | #3 (default) |
 | --- | --- | --- | --- |
-| **Cheap plumbing / docs / scout Cloud Agents** | **Composer 2.5** (non-fast) on **Cursor Cloud Agent** | Lowest-priced model in the Cursor Models pool; Cursor positions Composer 2.5 for sustained agent work, instruction following, and repo-grounded tasks. Adequate for READMEs, routing docs, and shallow repo reconnaissance. | **Cursor Models pool** (generous included usage on Pro; see [Cursor Models pricing](https://cursor.com/docs/models-and-pricing#cursor-models)) |
-| **Repo / debug** (Cursor Cloud on GitHub repos) | **Claude Sonnet 5** on **Cursor Cloud Agent** | Anthropic markets Sonnet 5 as the default agentic/coding Sonnet tier with 1M context ([model card](https://www.anthropic.com/claude/sonnet)). On LMArena Text (2026-08-24 snapshot), `claude-sonnet-4-6` ranks **#14 Coding** and **#19 Instruction Following** — the nearest verified predecessor in the public board ([LMArena Text](https://arena.ai/leaderboard)). Strong enough for Frt682 repo fixes without Opus spend. | **Other Models — mid tier** (draws Pro’s included Other Models allowance; on-demand stays off) |
-| **YouTube Unhurried script** (A1–A2 English; quality over volume) | **GPT-5.5** in **ChatGPT Plus** | Keeps Cursor on-demand disabled for everything except this lane. ChatGPT Plus is already subscribed; script quality is prompt- and revision-driven (simple syntax, short sentences) more than frontier creative rank. LMArena lists `gpt-5.5` at **#23 Overall**, **#27 Instruction Following** ([LMArena Text](https://arena.ai/leaderboard)) — sufficient when the brief enforces A1–A2. Audio is **Kokoro + FFmpeg**, not the LLM. **Exception:** if a daily long/short script stalls, enable Cursor on-demand once and use **Claude Sonnet 5** — then turn on-demand off again. | **ChatGPT Plus subscription (included)**; optional **Other Models on-demand** only for the daily YouTube exception |
-| **Kenya OfferWeek `data.js` / static PWA edits** | **Grok 4.5** via **Grok Bot team** (or manual edit) | Weekly workflow is intentionally manual ([`SIZIN-ISINIZ.md`](../SIZIN-ISINIZ.md): no scraper, no app rewrites). For a stuck date string, filename, or JSON entry, Grok Bot answers in-chat without opening Cursor. Vercel redeploys from GitHub; model never touches live HTML/CSS beyond what you paste. | **Grok Bot team subscription (included)** |
-| **Creative book prose** (Book Writer romantasy) | **Claude Fable 5** in **Book Writer**; escalate to **Claude Opus 5** only if a chapter fails twice | LMArena Text (2026-08-24): `claude-fable-5` is **#1 Creative Writing** and **#1 Overall**; `claude-opus-5-high` is only **#10 Creative Writing** ([LMArena Text](https://arena.ai/leaderboard)). Fable covers romantasy voice without defaulting to Opus. Book Writer owns drafts; Emanet/Play Books stays untouched. | **Other Models — premium tier** (Fable 5 / Opus 5 rates in [Other Models pricing](https://cursor.com/docs/models-and-pricing#other-models); billed through Book Writer’s backend, not OfferWeek) |
-| **Translation** (TR↔EN; Kenya English UI copy) | **Gemini 3.7 Flash** in **Cursor** for shipped UI strings; **LM Studio** local OSS for bulk TR↔EN drafts | Kenya UI needs clear, simple English — not literary prose. LMArena: `gemini-3.7-flash-high` is **#10 Instruction Following**, **#3 Creative Writing** ([LMArena Text](https://arena.ai/leaderboard)). Cursor lists Gemini 3.7 Flash in the low end of Other Models ([pricing table](https://cursor.com/docs/models-and-pricing#model-pricing)). LM Studio on the Lenovo is valid for offline first-pass translation at zero marginal cost ([LM Studio docs](https://lmstudio.ai/docs)). | **Other Models — low tier** or **free / local (LM Studio)** |
-| **Long-context** (full manuscript, long agent transcripts, big diffs) | **Gemini 3.1 Pro** in **Cursor** | LMArena: `gemini-3.1-pro-preview` is **#9 Longer Query**, **#14 Overall** ([LMArena Text](https://arena.ai/leaderboard)). Cursor documents Gemini 3.1 Pro with extended context at standard per-token rates ([model pricing](https://cursor.com/docs/models-and-pricing#model-pricing)). Beats burning Opus for read-the-whole-thing tasks. | **Other Models — mid tier** |
-| **Tool-calling / agentic** (multi-step Cloud Agent with MCP/tools) | **Claude Opus 5 (High)** on **Cursor Cloud Agent** | LMArena Agent board (2026-08-24): **#1** `Claude Opus 5 (High)` at 12.47% win rate; Anthropic positions Opus 5 for production agents ([Opus model card](https://www.anthropic.com/claude/opus)). Use when Composer/Sonnet loops on tool errors. | **Other Models — premium tier** (Opus 5 in [Other Models pricing](https://cursor.com/docs/models-and-pricing#model-pricing); consumes Pro allowance faster — still keep on-demand off unless YouTube exception) |
+| Instruction Following | `claude-opus-4-6-high` | `claude-fable-5` | `claude-opus-4-7-high` |
+| Coding | `claude-opus-4-7-high` | `claude-opus-4-6-high` | `claude-fable-5` |
+| Creative Writing | `claude-fable-5` | `claude-opus-4-6-high` | `gemini-3.7-flash-high` |
+| Longer Query | `claude-opus-4-6-high` | `claude-fable-5` | `claude-opus-4-6` |
+| Agent | `Claude Opus 5 (High)` | `Claude Opus 5 (Max)` | `Claude Fable 5 (High)` |
 
 ## Cost-class legend
 
@@ -54,7 +70,7 @@ Aligned with [Cursor models & pricing](https://cursor.com/docs/models-and-pricin
 | Cursor — Pricing | https://cursor.com/pricing | Pro plan capabilities, Grok/Cloud Agent inclusion |
 | Cursor — Composer 2.5 | https://cursor.com/blog/composer-2-5 | Composer 2.5 agent positioning |
 | Anthropic — Claude Sonnet | https://www.anthropic.com/claude/sonnet | Sonnet 5 agentic/coding positioning, 1M context |
-| Anthropic — Claude Opus | https://www.anthropic.com/claude/opus | Opus 5 agent positioning |
+| Anthropic — Claude Opus | https://www.anthropic.com/claude/opus | Opus 5 agent positioning (escalate tier only) |
 | LMArena (formerly LMSYS Chatbot Arena) | https://arena.ai/leaderboard | Text + Agent leaderboard ranks (2026-08-24 snapshot) |
 | LM Studio docs | https://lmstudio.ai/docs | Local OSS inference |
 | OpenAI — GPT-5 index | https://openai.com/index/gpt-5/ | GPT-5 family reference (GPT-5 Mini / GPT-5.5 lineage) |
@@ -71,3 +87,4 @@ Aligned with [Cursor models & pricing](https://cursor.com/docs/models-and-pricin
 - **Kenya scraper agents** — out of scope; manual weekly covers only.
 - **Second YouTube channel / restore / upload calendar changes** — Unhurried English podcast only; pipeline constraints unchanged.
 - **Partner Center / Emanet Play Books** — pending payment; no action.
+- **LMArena #1 as default** — Fable, Opus 5 (High), and category #1 models are escalate-only across all rows.
