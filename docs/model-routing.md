@@ -88,3 +88,4 @@ Aligned with [Cursor models & pricing](https://cursor.com/docs/models-and-pricin
 - **Second YouTube channel / restore / upload calendar changes** — Unhurried English podcast only; pipeline constraints unchanged.
 - **Partner Center / Emanet Play Books** — pending payment; no action.
 - **LMArena #1 as default** — Fable, Opus 5 (High), and category #1 models are escalate-only across all rows.
+- **Fable / Opus as book-prose default** — CoS lock: start on `gemini-3.7-flash-high` (CW #3) only.
