@@ -13,6 +13,10 @@ function saveFavs() {
   localStorage.setItem("ow-favs", JSON.stringify(state.favStores));
 }
 
+function isRealCatalog(c) {
+  return !c.empty && Boolean(c.cover);
+}
+
 function filteredCatalogs() {
   const q = state.query.trim().toLowerCase();
   return APP_DATA.catalogs.filter((c) => {
@@ -31,6 +35,36 @@ function filteredStores() {
   });
 }
 
+function catalogCount(storeId) {
+  return APP_DATA.catalogs.filter((c) => c.storeId === storeId && isRealCatalog(c)).length;
+}
+
+function cardMarkup(c) {
+  const date = c.date || (APP_DATA.week && APP_DATA.week.label) || "";
+  if (c.empty || !c.cover) {
+    const url = c.sourceUrl || "#";
+    return `
+      <a class="card card-empty" href="${url}" target="_blank" rel="noopener noreferrer">
+        <div class="card-name">${c.store}</div>
+        <div class="cover-wrap empty-cover">
+          <div class="empty-cover-inner">
+            <strong>No flyer this week</strong>
+            <span>Open official promos</span>
+          </div>
+        </div>
+        <div class="card-date">${date}</div>
+      </a>
+    `;
+  }
+  return `
+    <button class="card" data-open="${c.id}">
+      <div class="card-name">${c.store}</div>
+      <div class="cover-wrap"><img src="${c.cover}" alt="${c.title}"></div>
+      <div class="card-date">${date}</div>
+    </button>
+  `;
+}
+
 function render() {
   $("#tab-stores").classList.toggle("active", state.tab === "stores");
   $("#tab-latest").classList.toggle("active", state.tab === "latest");
@@ -41,19 +75,13 @@ function render() {
   if (state.tab === "latest") {
     const items = filteredCatalogs();
     $("#grid").innerHTML = items.length
-      ? items.map((c) => `
-          <button class="card" data-open="${c.id}">
-            <div class="card-name">${c.store}</div>
-            <div class="cover-wrap"><img src="${c.cover}" alt="${c.title}"></div>
-            <div class="card-date">${c.date}</div>
-          </button>
-        `).join("")
+      ? items.map(cardMarkup).join("")
       : `<div class="empty" style="grid-column:1/-1">No catalogues this week.</div>`;
   } else {
     const stores = filteredStores();
     $("#storeList").innerHTML = stores.length
       ? stores.map((s) => {
-          const count = APP_DATA.catalogs.filter((c) => c.storeId === s.id).length;
+          const count = catalogCount(s.id);
           const starred = state.favStores.includes(s.id);
           return `
             <button class="store-row" data-store="${s.id}">
@@ -73,6 +101,10 @@ function render() {
 function openViewer(id) {
   const item = APP_DATA.catalogs.find((c) => c.id === id);
   if (!item) return;
+  if (item.empty || !item.cover || !item.pages || !item.pages.length) {
+    if (item.sourceUrl) window.open(item.sourceUrl, "_blank", "noopener,noreferrer");
+    return;
+  }
   state.viewer = item;
   state.page = 0;
   $("#viewerImg").src = item.pages[0];
